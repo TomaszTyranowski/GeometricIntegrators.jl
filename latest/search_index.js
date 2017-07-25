@@ -877,7 +877,23 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
+    "text": "Create solution for partitioned DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for partitioned ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for implicit DAE.\n\n\n\n"
 },
 
 {
@@ -886,14 +902,6 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
     "text": "Create solution for ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for partitioned DAE.\n\n\n\n"
 },
 
 {
@@ -917,15 +925,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for partitioned ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for implicit DAE.\n\n\n\n"
+    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
 },
 
 {
@@ -1569,6 +1569,30 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA2-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA2",
+    "category": "Method",
+    "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with two stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA3-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA3",
+    "category": "Method",
+    "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with three stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA4-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA4",
+    "category": "Method",
+    "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with four stages\n\n\n\n"
+},
+
+{
     "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIC2-Tuple{}",
     "page": "Tableaus",
     "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIC2",
@@ -1662,6 +1686,30 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIF4",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIF method with four stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIG2-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIG2",
+    "category": "Method",
+    "text": "Tableau for variational Gauss-Lobatto IIIG method with two stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIG3-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIG3",
+    "category": "Method",
+    "text": "Tableau for variational Gauss-Lobatto IIIG method with three stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIG4-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIG4",
+    "category": "Method",
+    "text": "Tableau for variational Gauss-Lobatto IIIG method with four stages\n\n\n\n"
 },
 
 {
