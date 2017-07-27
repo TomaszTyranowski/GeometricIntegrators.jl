@@ -129,6 +129,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/equations.html#GeometricIntegrators.Equations.SODE",
+    "page": "Equations",
+    "title": "GeometricIntegrators.Equations.SODE",
+    "category": "Type",
+    "text": "SODE: Split Ordinary Differential Equation\n\nDefines an initial value problem\n\ndotq (t) = v(t q(t))  qquad q(t_0) = q_0 \n\nwith vector field v, initial condition q_0 and the solution q taking values in mathbbR^d. Here, the vector field v is given as a sum of vector fields\n\nv (t) = v_1 (t) +  + v_r (t) \n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nv: tuple of functions computing the vector field\nt₀: initial time\nq₀: initial condition\n\nThe functions v_i providing the vector field must have the interface\n\n    function v_i(t, q, v)\n        v[1] = ...\n        v[2] = ...\n        ...\n    end\n\nwhere t is the current time, q is the current solution vector, and v is the vector which holds the result of evaluating the vector field v_i on t and q.\n\n\n\n"
+},
+
+{
     "location": "modules/equations.html#GeometricIntegrators.Equations.VODE",
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.VODE",
@@ -265,6 +273,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.Integrator-Tuple{GeometricIntegrators.Equations.SODE,GeometricIntegrators.Tableaus.AbstractTableauSplitting,Any}",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.Integrator",
+    "category": "Method",
+    "text": "Create integrator for splitting tableau.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorDIRK",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.IntegratorDIRK",
@@ -329,6 +345,38 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorSplitting",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorSplitting",
+    "category": "Type",
+    "text": "Splitting integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorSplitting-Union{Tuple{DT}, Tuple{GeometricIntegrators.Equations.SODE{DT,TT,VT,N} where N,ST,TT}, Tuple{ST}, Tuple{TT}, Tuple{VT}} where ST<:GeometricIntegrators.Tableaus.TableauSplittingGS{TT} where VT where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorSplitting",
+    "category": "Method",
+    "text": "Construct splitting integrator for symmetric splitting tableau with general stages.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorSplitting-Union{Tuple{DT}, Tuple{GeometricIntegrators.Equations.SODE{DT,TT,VT,N} where N,ST,TT}, Tuple{ST}, Tuple{TT}, Tuple{VT}} where ST<:GeometricIntegrators.Tableaus.TableauSplittingNS{TT} where VT where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorSplitting",
+    "category": "Method",
+    "text": "Construct splitting integrator for non-symmetric splitting tableau with general stages.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorSplitting-Union{Tuple{DT}, Tuple{GeometricIntegrators.Equations.SODE{DT,TT,VT,N} where N,ST,TT}, Tuple{ST}, Tuple{TT}, Tuple{VT}} where ST<:GeometricIntegrators.Tableaus.TableauSplittingSS{TT} where VT where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorSplitting",
+    "category": "Method",
+    "text": "Construct splitting integrator for symmetric splitting tableau with symmetric stages.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorVPARK",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.IntegratorVPARK",
@@ -389,6 +437,14 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
+    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate",
+    "category": "Function",
     "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
@@ -398,14 +454,6 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
     "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate",
-    "category": "Function",
-    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -769,6 +817,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{FT}, Tuple{GeometricIntegrators.Integrators.IntegratorSplitting{DT,TT,FT,ST,FT,CT,N} where N where CT where FT where ST<:GeometricIntegrators.Tableaus.AbstractTableauSplitting,GeometricIntegrators.Solutions.SolutionODE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}} where N where FT where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate ODE with splitting integrator.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.midpoint_extrapolation-Union{Tuple{DT}, Tuple{Function,Function,TT,TT,Array{DT,1},Array{DT,1},Array{DT,1},Array{DT,1},Int64}, Tuple{TT}} where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.midpoint_extrapolation",
@@ -877,7 +933,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for partitioned DAE.\n\n\n\n"
+    "text": "Create solution for DAE.\n\n\n\n"
 },
 
 {
@@ -893,23 +949,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
+    "text": "Create solution for ODE and split ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
     "text": "Create solution for implicit DAE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for DAE.\n\n\n\n"
 },
 
 {
@@ -926,6 +974,14 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
     "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for partitioned DAE.\n\n\n\n"
 },
 
 {
@@ -1190,6 +1246,30 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Tableaus.TableauSPARK",
     "category": "Type",
     "text": "Holds the tableau of a spezialized partitioned additive Runge-Kutta method.\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.TableauSplittingGS",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.TableauSplittingGS",
+    "category": "Type",
+    "text": "Tableau for symmetric splitting methods with general stages.\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.TableauSplittingNS",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.TableauSplittingNS",
+    "category": "Type",
+    "text": "Tableau for non-symmetric splitting methods.\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.TableauSplittingSS",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.TableauSplittingSS",
+    "category": "Type",
+    "text": "Tableau for symmetric splitting methods with symmetric stages.\n\n\n\n"
 },
 
 {
@@ -1734,6 +1814,14 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Tableaus.writeTableauToFile",
     "category": "Method",
     "text": "Write Runge-Kutta tableau to file.\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.AbstractTableauERK",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.AbstractTableauERK",
+    "category": "Type",
+    "text": "Holds the tableau of an explicit Runge-Kutta method.\n\n\n\n"
 },
 
 {
