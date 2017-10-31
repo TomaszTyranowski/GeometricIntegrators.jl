@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Modules",
     "category": "section",
-    "text": "Pages = [\"modules/basis_functions.md\",\n         \"modules/equations.md\",\n         \"modules/integrators.md\",\n         \"modules/interpolation.md\",\n         \"modules/solvers_linear.md\",\n         \"modules/solvers_nonlinear.md\",\n         \"modules/solutions.md\",\n         \"modules/tableaus.md\"\n]"
+    "text": "Pages = [\"modules/basis_functions.md\",\n         \"modules/equations.md\",\n         \"modules/integrators.md\",\n         \"modules/interpolation.md\",\n         \"modules/quadratures.md\",\n         \"modules/simulations.md\",\n         \"modules/solvers_linear.md\",\n         \"modules/solvers_nonlinear.md\",\n         \"modules/solutions.md\",\n         \"modules/tableaus.md\"\n]"
 },
 
 {
@@ -37,7 +37,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "License",
     "category": "section",
-    "text": "Copyright (c) 2016 Michael Kraus <michael.kraus@ipp.mpg.de>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    "text": "Copyright (c) 2016-2017 Michael Kraus <michael.kraus@ipp.mpg.de>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
 },
 
 {
@@ -53,7 +53,71 @@ var documenterSearchIndex = {"docs": [
     "page": "Tutorial",
     "title": "Tutorial",
     "category": "section",
-    "text": ""
+    "text": "In the simplest cases, the use of GeometricIntegrators.jl requires the construction of two objects, an equation and an integrator. The integrator is usually implicitly selected by specifying an equation and a tableau."
+},
+
+{
+    "location": "tutorial.html#Equations-1",
+    "page": "Tutorial",
+    "title": "Equations",
+    "category": "section",
+    "text": "In GeometricIntegrators.jl we distinguish between three basic types of equations: ordinary differential equations (ODEs), differential algebraic equations (DAEs) and stochastic differential equations (SDEs). For each type, there are several subtypes like implicit equations (IODE, etc.), partitioned equations (PODE, etc.) or split equations (SODE, etc.).Instantiating an ODE object for the pendulum problem \\[ \\dot{x}_1 = x_2 , \\hspace{3em} \\dot{x}_2 = \\sin (x_1) , \\] can be achieved byfunction pendulum_rhs(t, x, f)\n    f[1] = x[2]\n    f[2] = sin(x[1])\nend\n\node = ODE(pendulum_rhs, [acos(0.4), 0.0])The first argument to the ODE constructor is the function that determines the vector field of the equation dotx (t) = f(t x(t)), and the second argument determines the initial conditions. The function defining the vector field has to take three arguments, the current time t, the current solution vector x and the output vector f.The pendulum problem is a Hamiltonian system that can also be expressed as \\[ \\dot{q} = \\frac{\\partial H}{\\partial p} = p , \\hspace{3em} \\dot{p} = - \\frac{\\partial H}{\\partial q} = \\sin (q) , \\hspace{3em} H (q,p) = \\frac{1}{2} p^2 + \\cos (q) . \\] This structure, namely the partitioning into two sets of variables (qp) instead of x, can be exploited for more efficient integration. Such equations can be defined in terms of a partitioned ODE, where the vector fields are specified separately,function pendulum_v(t, q, p, v)\n    v[1] = p[1]\nend\n\nfunction pendulum_f(t, q, p, f)\n    f[1] = sin(q[1])\nend\n\npode = PODE(pendulum_v, pendulum_f, [acos(0.4)], [0.0])The first two arguments to the PODE constructor are the functions that determine the vector fields of the equations dotq (t) = v(t q(t) p(t)) and dotp (t) = f(t q(t) p(t)). The third and fourth argument determines the initial conditions of q and p, respectively. The functions defining the vector field have to take four arguments, the current time t, the current solution vectors q and p and the output vector v or f."
+},
+
+{
+    "location": "tutorial.html#Integrators-1",
+    "page": "Tutorial",
+    "title": "Integrators",
+    "category": "section",
+    "text": "We support a number of standard integrators (geometric and non-geometric) like explicit, implicit and partitioned Runge-Kutta methods, splitting methods and general linear methods (_planned_).In order to instantiate many of the standard integrators, one needs to specify an ODE, a tableau and a timestep, e.g.,int = Integrator(ode, getTableauExplicitEuler(), 0.1)In order to run the integrator, the integrate() functions is called, passing an integrator object and the number of time steps to integrate:sol = integrate(int, 10)The integrate function automatically creates an appropriate solution object, that contains the result of the integration.For a Hamiltonian system, defined as a PODE, a different tableau might be more appropriate, for example a symplectic Euler method,int = Integrator(pode, getTableauSymplecticEulerA(), 0.1)\nsol = integrate(int, 10)This creates a different integrator, which exploits the partitioned structure of the system. The solution return by the integrate step will also be a different solution, adapted to the partitioned system."
+},
+
+{
+    "location": "tutorial.html#Tableaus-1",
+    "page": "Tutorial",
+    "title": "Tableaus",
+    "category": "section",
+    "text": "Many tableaus for Runge-Kutta methods are predefined and can easily be used like outlined above. In particular, this includes the following methods:"
+},
+
+{
+    "location": "tutorial.html#Explicit-Runge-Kutta-Methods-1",
+    "page": "Tutorial",
+    "title": "Explicit Runge-Kutta Methods",
+    "category": "section",
+    "text": "Function Order Method\ngetTableauExplicitEuler() 1 Explicit / Forward Euler\ngetTableauExplicitMidpoint() 2 Explicit Midpoint\ngetTableauHeun() 2 Heun's Method\ngetTableauKutta() 3 Kutta's Method\ngetTableauERK4() 4 Explicit 4th order Runge-Kutta (1/6 rule)\ngetTableauERK438() 4 Explicit 4th order Runge-Kutta (3/8 rule)"
+},
+
+{
+    "location": "tutorial.html#Fully-Implicit-Runge-Kutta-Methods-1",
+    "page": "Tutorial",
+    "title": "Fully Implicit Runge-Kutta Methods",
+    "category": "section",
+    "text": "Function Order Method\ngetTableauImplicitEuler() 1 Implicit / Backward Euler\ngetTableauImplicitMidpoint() 2 Implicit Midpoint\ngetTableauRadIIA2() 3 Radau-IIA s=2\ngetTableauRadIIA3() 5 Radau-IIA s=3\ngetTableauSRK3() 4 Symmetric Runge-Kutta s=3\ngetTableauGLRK(s) 2s Gauss-Legendre Runge-Kutta"
+},
+
+{
+    "location": "tutorial.html#Explicit-Partitioned-Runge-Kutta-Methods-1",
+    "page": "Tutorial",
+    "title": "Explicit Partitioned Runge-Kutta Methods",
+    "category": "section",
+    "text": "Function Order Method\ngetTableauSymplecticEulerA() 1 Symplectic Euler A\ngetTableauSymplecticEulerB() 1 Symplectic Euler B\ngetTableauLobattoIIIAIIIB2() 2 Lobatto-IIIA-IIIB\ngetTableauLobattoIIIBIIIA2() 2 Lobatto-IIIB-IIIA"
+},
+
+{
+    "location": "tutorial.html#Custom-Tableaus-1",
+    "page": "Tutorial",
+    "title": "Custom Tableaus",
+    "category": "section",
+    "text": "If required, it is straight-forward to create a custom tableau. The tableau of Heun's method, for example, is defined as follows:a = [[0.0 0.0]\n     [1.0 0.0]]\nb = [0.5, 0.5]\nc = [0.0, 1.0]\no = 2\n\ntab = TableauERK(:heun, o, a, b, c)Here, o is the order of the method, a are the coefficients, b the weights and c the nodes. TableauERK states that the method is explicit. Other choices include TableauFIRK for fully implicit Runge-Kutta methods, TableauDIRK for diagonally implicit and TableauSIRK for singly implicit Runge-Kutta methods. TableauEPRK and TableauIPRK can be used for explicit and implicit partitioned Runge-Kutta methods. The first parameter of the constructor of each tableau assigns a name to the tableau. Such custom tableaus can be used in exactly the same as standard tableaus, e.g., byint = Integrator(ode, tab, 0.1)\nsol = integrate(int, 10)making it very easy to implement and test new methods."
+},
+
+{
+    "location": "tutorial.html#Solutions-1",
+    "page": "Tutorial",
+    "title": "Solutions",
+    "category": "section",
+    "text": "In what we have seen so far, the solution was always automatically created by the integrate() function. While this is often convenient, it is sometimes not performant, e.g., when carrying out long-time simulations with intermediate saving of the solution. In such cases, it is better to preallocate a solution object bysol = Solution(ode, 0.1, 10)where the first argument is an equation, the second argument is the time step and the third argument is the number of time steps that will be computed in one integration step. The call to the integrator is then made viaintegrate!(int, sol)If several integration cycles shall be performed, the reset!() function can be used to copy the solution of the last time step to the initial conditions of the solution,for i in 1:10\n    integrate!(int, sol)\n    #\n    # save or process solution\n    #\n    reset!(sol)\nendAll solutions have a t field holding the series of time steps that has been computed in addition to several data fields, for example q for an ODE solution, q and p for a PODE solution, qand λ for a DAE solution, and q, p and λ for a PDAE solution."
 },
 
 {
@@ -281,6 +345,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorCGVI",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorCGVI",
+    "category": "Type",
+    "text": "Continuous Galerkin Variational Integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorDGVI",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorDGVI",
+    "category": "Type",
+    "text": "Discontinuous Galerkin Variational Integrator.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorDIRK",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.IntegratorDIRK",
@@ -321,11 +401,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorSARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorPARK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.IntegratorSARK",
+    "title": "GeometricIntegrators.Integrators.IntegratorPARK",
     "category": "Type",
-    "text": "Special Additive Runge Kutta integrator.\n\n\n\n"
+    "text": "Implicit partitioned additive Runge-Kutta integrator.\n\n\n\n"
 },
 
 {
@@ -401,6 +481,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorVPRKpSecondary",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorVPRKpSecondary",
+    "category": "Type",
+    "text": "Variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorVPRKpStandard",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.IntegratorVPRKpStandard",
@@ -412,6 +500,14 @@ var documenterSearchIndex = {"docs": [
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorVPRKpSymmetric",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.IntegratorVPRKpSymmetric",
+    "category": "Type",
+    "text": "Variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorVPRKpVariational",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.IntegratorVPRKpVariational",
     "category": "Type",
     "text": "Variational partitioned Runge-Kutta integrator.\n\n\n\n"
 },
@@ -437,6 +533,14 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
+    "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate",
+    "category": "Function",
     "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
@@ -449,15 +553,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate",
-    "category": "Function",
-    "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-NTuple{4,Any}",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Tuple{GeometricIntegrators.Integrators.Integrator,GeometricIntegrators.Solutions.Solution,Any,Any}",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate!",
     "category": "Method",
@@ -465,19 +561,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Tuple{Any,Any}",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Tuple{GeometricIntegrators.Integrators.Integrator,GeometricIntegrators.Solutions.Solution}",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate!",
     "category": "Method",
     "text": "Integrate ODE for all initial conditions.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Tuple{GeometricIntegrators.Integrators.IntegratorARK,GeometricIntegrators.Solutions.SolutionDAE}",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate!",
-    "category": "Method",
-    "text": "Integrate DAE with Additive Runge Kutta integrator.\n\n\n\n"
 },
 
 {
@@ -494,14 +582,6 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Integrators.integrate!",
     "category": "Method",
     "text": "Integrate partitioned ODE with diagonally implicit Runge-Kutta integrator.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Tuple{GeometricIntegrators.Integrators.IntegratorSARK,GeometricIntegrators.Solutions.SolutionDAE}",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate!",
-    "category": "Method",
-    "text": "Integrate DAE with Special Additive Runge Kutta integrator.\n\n\n\n"
 },
 
 {
@@ -529,11 +609,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPARK{DT,TT,FT,PT,UT,GT,ϕT,VT,SPT,ST,IT} where IT where ST where SPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{VT}, Tuple{ϕT}} where N where VT where ϕT where GT where UT where PT where FT where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpSecondary{DT,TT,ΑT,FT,GT,VT,ΩT,HT,FPT,ST,IT} where IT where ST where FPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{HT}, Tuple{N}, Tuple{TT}, Tuple{VT}, Tuple{ΑT}, Tuple{ΩT}} where HT where ΩT where N where VT where GT where FT where ΑT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate!",
     "category": "Method",
-    "text": "Integrate DAE with variational partitioned additive Runge-Kutta integrator.\n\n\n\n"
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpVariational{DT,TT,ΑT,FT,GT,VT,SPT,PPT,SST,STP,IT} where IT where STP where SST where PPT where SPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}, Tuple{VT}, Tuple{ΑT}} where N where VT where GT where FT where ΑT where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate!",
+    "category": "Method",
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
 },
 
 {
@@ -569,6 +657,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersCGVI{DT,TT,ΘT,FT,D,S,R}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{R}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where R where S where D where FT where ΘT where TT where DT where ST",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Solvers.function_stages!",
+    "category": "Method",
+    "text": "Compute stages of variational partitioned Runge-Kutta methods.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersDGVI{DT,TT,ΘT,FT,GT,D,S,QR,FR}}, Tuple{DT}, Tuple{D}, Tuple{FR}, Tuple{FT}, Tuple{GT}, Tuple{QR}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where FR where QR where S where D where GT where FT where ΘT where TT where DT where ST",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Solvers.function_stages!",
+    "category": "Method",
+    "text": "Compute stages of variational partitioned Runge-Kutta methods.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersFIRK{DT,TT,VT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{VT}} where S where D where VT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Solvers.function_stages!",
@@ -593,6 +697,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary{DT,TT,ΑT,FT,GT,VT,ΩT,HT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{GT}, Tuple{HT}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{VT}, Tuple{ΑT}, Tuple{ΩT}} where S where D where HT where ΩT where VT where GT where FT where ΑT where TT where DT where ST",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Solvers.function_stages!",
+    "category": "Method",
+    "text": "Compute stages of variational partitioned Runge-Kutta methods.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard{DT,TT,ΑT,GT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{GT}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΑT}} where S where D where GT where ΑT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Solvers.function_stages!",
@@ -609,6 +721,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational{DT,TT,ΑT,GT,D}}, Tuple{DT}, Tuple{D}, Tuple{GT}, Tuple{ST}, Tuple{TT}, Tuple{ΑT}} where D where GT where ΑT where TT where DT where ST",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Solvers.function_stages!",
+    "category": "Method",
+    "text": "Compute stages of projected variational partitioned Runge-Kutta methods.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Solvers.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK{DT,TT,ΑT,FT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΑT}} where S where D where FT where ΑT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Solvers.function_stages!",
@@ -617,19 +737,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersCGVI",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.IntegratorARK",
+    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersCGVI",
     "category": "Type",
-    "text": "Additive Runge Kutta integrator.\n\n\n\n"
+    "text": "NonlinearFunctionParametersCGVI: Parameters for right-hand side function of continuous Galerkin variational Integrator.\n\nParameters\n\nΘ: function of the noncanonical one-form (∂L/∂v)\nf: function of the force (∂L/∂q)\nΔt: time step\nb: weights of the quadrature rule\nc: nodes of the quadrature rule\nx: nodes of the basis\nm: mass matrix\na: derivative matrix\nr₀: reconstruction coefficients at the beginning of the interval\nr₁: reconstruction coefficients at the end of the interval\nt: current time\nq: current solution of q\np: current solution of p\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.IntegratorPARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersDGVI",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.IntegratorPARK",
+    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersDGVI",
     "category": "Type",
-    "text": "Implicit partitioned additive Runge-Kutta integrator.\n\n\n\n"
+    "text": "NonlinearFunctionParametersDGVI: Parameters for right-hand side function of discontinuous Galerkin variational Integrator.\n\nParameters\n\nΘ: function of the noncanonical one-form (∂L/∂v)\nf: function of the force (∂L/∂q)\nΔt: time step\nb: quadrature weights\nc: quadrature nodes\nm: mass matrix\na: derivative matrix\nr₀: reconstruction coefficients, left-hand side\nr₁: reconstruction coefficients, right-hand side\nβ: weights of the quadrature rule for the flux\nγ: nodes of the quadrature rule for the flux\nμ₀: mass vector for the lhs flux\nμ₁: mass vector for the rhs flux\nα₀: derivative vector for the lhs flux\nα₁: derivative vector for the rhs flux\nt: current time\nq: current solution of q\np: current solution of p\nD: dimension of the system\nS: number of basis nodes\nR: number of quadrature nodes\nP: number of quadrature nodes for the flux\n\n\n\n"
 },
 
 {
@@ -681,6 +801,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary",
+    "category": "Type",
+    "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard",
@@ -692,6 +820,14 @@ var documenterSearchIndex = {"docs": [
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSymmetric",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSymmetric",
+    "category": "Type",
+    "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
@@ -713,7 +849,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.computeStageP!-Tuple{GeometricIntegrators.Integrators.IntegratorEPRK,Int64,Int64,Any}",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.computeStageP!-Tuple{GeometricIntegrators.Integrators.IntegratorEPRK,Int64,Int64,Int64,Any}",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.computeStageP!",
     "category": "Method",
@@ -721,7 +857,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.computeStageQ!-Tuple{GeometricIntegrators.Integrators.IntegratorEPRK,Int64,Int64,Any}",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.computeStageQ!-Tuple{GeometricIntegrators.Integrators.IntegratorEPRK,Int64,Int64,Int64,Any}",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.computeStageQ!",
     "category": "Method",
@@ -745,6 +881,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPARK{DT,TT,FT,PT,UT,GT,ϕT,VT,SPT,ST,IT} where IT where ST where SPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{VT}, Tuple{ϕT}} where N where VT where ϕT where GT where UT where PT where FT where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate DAE with variational partitioned additive Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpMidpoint{DT,TT,ΑT,FT,GT,VT,FPT,ST,IT} where IT where ST where FPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}, Tuple{VT}, Tuple{ΑT}} where N where VT where GT where FT where ΑT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
@@ -762,14 +906,6 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpSymmetric{DT,TT,ΑT,FT,GT,VT,FPT,ST,IT} where IT where ST where FPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}, Tuple{VT}, Tuple{ΑT}} where N where VT where GT where FT where ΑT where TT where DT",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate_step!",
-    "category": "Method",
-    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRK{DT,TT,ΑT,FT,GT,VT,FPT,ST,IT} where IT where ST where FPT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}, Tuple{VT}, Tuple{ΑT}} where N where VT where GT where FT where ΑT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -822,6 +958,30 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
     "text": "Integrate ODE with splitting integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorCGVI{DT,TT,ΘT,FT,GT,VT,FPT,ST,IT,BT,D,S,R} where R where S where D where BT<:GeometricIntegrators.BasisFunctions.Basis where IT where ST where FPT where VT where GT where FT where ΘT,Union{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N, GeometricIntegrators.Solutions.SolutionPODE{DT,TT,N} where N},Int64,Int64}, Tuple{TT}} where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorDGVI{DT,TT,ΘT,FT,GT,VT,FPT,ST,IT,BT,FLT,D,S,R} where R where S where D where FLT<:GeometricIntegrators.NumericalFluxes.Flux where BT<:GeometricIntegrators.BasisFunctions.Basis where IT where ST where FPT where VT where GT where FT where ΘT,Union{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N, GeometricIntegrators.Solutions.SolutionPODE{DT,TT,N} where N},Int64,Int64}, Tuple{TT}} where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRK{DT,TT,ΑT,FT,GT,VT,FPT,ST,IT} where IT where ST where FPT where VT where GT where FT where ΑT,GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
 },
 
 {
@@ -905,6 +1065,54 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/numerical_fluxes.html#",
+    "page": "Numerical Fluxes",
+    "title": "Numerical Fluxes",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "modules/numerical_fluxes.html#GeometricIntegrators.NumericalFluxes.FluxPathLinear",
+    "page": "Numerical Fluxes",
+    "title": "GeometricIntegrators.NumericalFluxes.FluxPathLinear",
+    "category": "Type",
+    "text": "FluxPathLinear is a linear path\n\nphi (tau q^- q^+) = (1-tau) q^- + tau q^+ \n\n\n\n"
+},
+
+{
+    "location": "modules/numerical_fluxes.html#Numerical-Fluxes-1",
+    "page": "Numerical Fluxes",
+    "title": "Numerical Fluxes",
+    "category": "section",
+    "text": "Modules = [GeometricIntegrators.NumericalFluxes]\nOrder   = [:constant, :type, :macro, :function]"
+},
+
+{
+    "location": "modules/quadratures.html#",
+    "page": "Quadrature Rules",
+    "title": "Quadrature Rules",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "modules/quadratures.html#GeometricIntegrators.Quadratures.shift!-Tuple{Any,Any}",
+    "page": "Quadrature Rules",
+    "title": "GeometricIntegrators.Quadratures.shift!",
+    "category": "Method",
+    "text": "Scale nodes and weights from the interval [-1,+1] to the interval [0,1]\n\n\n\n"
+},
+
+{
+    "location": "modules/quadratures.html#Quadratures-1",
+    "page": "Quadrature Rules",
+    "title": "Quadratures",
+    "category": "section",
+    "text": "Modules = [GeometricIntegrators.Quadratures]\nOrder   = [:constant, :type, :macro, :function]"
+},
+
+{
     "location": "modules/solutions.html#",
     "page": "Solutions",
     "title": "Solutions",
@@ -933,39 +1141,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for DAE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for partitioned ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
     "text": "Create solution for ODE and split ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for implicit DAE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for implicit ODE.\n\n\n\n"
 },
 
 {
@@ -981,7 +1157,47 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
+    "text": "Create solution for implicit ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for partitioned ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for variational ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
     "text": "Create solution for partitioned DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for implicit DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for DAE.\n\n\n\n"
 },
 
 {
@@ -1009,39 +1225,71 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,2},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,2},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
-    "category": "Function",
+    "category": "Method",
     "text": "Append solution to HDF5 file.\n\n\n\n"
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,3},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,3},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
-    "category": "Function",
+    "category": "Method",
     "text": "Append solution to HDF5 file.\n\n\n\n"
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,2},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,2},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
-    "category": "Function",
+    "category": "Method",
     "text": "Append solution to HDF5 file.\n\n\n\n"
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,3},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,3},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
-    "category": "Function",
+    "category": "Method",
     "text": "Append solution to HDF5 file.\n\n\n\n"
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,N} where N,AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,N} where N,AbstractString}, Tuple{TT}} where TT where DT",
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,2},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,2},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "category": "Method",
+    "text": "Append solution to HDF5 file.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,3},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,3},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "category": "Method",
+    "text": "Append solution to HDF5 file.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,2},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,2},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "category": "Method",
+    "text": "Append solution to HDF5 file.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,3},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,3},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "category": "Method",
+    "text": "Append solution to HDF5 file.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,2},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,2},AbstractString}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.create_hdf5",
     "category": "Method",
@@ -1049,7 +1297,15 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,N} where N,AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,N} where N,AbstractString}, Tuple{TT}} where TT where DT",
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,3},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionDAE{DT,TT,3},AbstractString}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.create_hdf5",
+    "category": "Method",
+    "text": "Creates HDF5 file and initialises datasets for DAE solution object.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,2},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,2},AbstractString}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.create_hdf5",
     "category": "Method",
@@ -1057,19 +1313,51 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,AbstractString}, Tuple{TT}} where TT where DT",
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,3},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionODE{DT,TT,3},AbstractString}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.create_hdf5",
     "category": "Method",
-    "text": "Creates HDF5 file and initialises datasets for PDAE solution object.\n\n\n\n"
+    "text": "Creates HDF5 file and initialises datasets for ODE solution object.\n\n\n\n"
 },
 
 {
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,N} where N,AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,N} where N,AbstractString}, Tuple{TT}} where TT where DT",
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,2},AbstractString}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.create_hdf5",
+    "category": "Method",
+    "text": "Creates HDF5 file and initialises datasets for PDAE solution object with single initial condition.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,3},AbstractString}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.create_hdf5",
+    "category": "Method",
+    "text": "Creates HDF5 file and initialises datasets for PDAE solution object with multiple initial conditions.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,2},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,2},AbstractString}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.create_hdf5",
     "category": "Method",
     "text": "Creates HDF5 file and initialises datasets for PODE solution object.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,3},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,3},AbstractString}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.create_hdf5",
+    "category": "Method",
+    "text": "Creates HDF5 file and initialises datasets for PODE solution object.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.createHDF5",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.createHDF5",
+    "category": "Function",
+    "text": "createHDF5: Creates or opens HDF5 file.\n\n\n\n"
 },
 
 {
@@ -1577,6 +1865,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauLobattoIIIAIIIB2-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauLobattoIIIAIIIB2",
+    "category": "Method",
+    "text": "Tableau for Gauss-Lobatto IIIAIIIB method with s=2 stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauLobattoIIIBIIIA2-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauLobattoIIIBIIIA2",
+    "category": "Method",
+    "text": "Tableau for Gauss-Lobatto IIIBIIIA method with s=2 stages\n\n\n\n"
+},
+
+{
     "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauRadIIA2-Tuple{}",
     "page": "Tableaus",
     "title": "GeometricIntegrators.Tableaus.getTableauRadIIA2",
@@ -1625,49 +1929,73 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIB2-Tuple{}",
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIA2-Tuple{}",
     "page": "Tableaus",
-    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIB2",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIA2",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with two stages\n\n\n\n"
 },
 
 {
-    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIB3-Tuple{}",
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIA3-Tuple{}",
     "page": "Tableaus",
-    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIB3",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIA3",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with three stages\n\n\n\n"
 },
 
 {
-    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIB4-Tuple{}",
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIA4-Tuple{}",
     "page": "Tableaus",
-    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIB4",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIA4",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with four stages\n\n\n\n"
 },
 
 {
-    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA2-Tuple{}",
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIA2-Tuple{}",
     "page": "Tableaus",
-    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA2",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIA2",
+    "category": "Method",
+    "text": "Tableau for Gauss-Lobatto IIIA-IIIA method with two stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIA3-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIA3",
+    "category": "Method",
+    "text": "Tableau for Gauss-Lobatto IIIA-IIIA method with three stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIA4-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIAIIIA4",
+    "category": "Method",
+    "text": "Tableau for Gauss-Lobatto IIIA-IIIA method with four stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIB2-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIB2",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with two stages\n\n\n\n"
 },
 
 {
-    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA3-Tuple{}",
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIB3-Tuple{}",
     "page": "Tableaus",
-    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA3",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIB3",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with three stages\n\n\n\n"
 },
 
 {
-    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA4-Tuple{}",
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPLobIIIB4-Tuple{}",
     "page": "Tableaus",
-    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIBIIIA4",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIB4",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIA-IIIB method with four stages\n\n\n\n"
 },
@@ -1790,6 +2118,22 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Tableaus.getTableauVPLobIIIG4",
     "category": "Method",
     "text": "Tableau for variational Gauss-Lobatto IIIG method with four stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPRadIIAIIA2-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPRadIIAIIA2",
+    "category": "Method",
+    "text": "Tableau for Gauss-Radau IIA-IIA method with two stages\n\n\n\n"
+},
+
+{
+    "location": "modules/tableaus.html#GeometricIntegrators.Tableaus.getTableauVPRadIIAIIA3-Tuple{}",
+    "page": "Tableaus",
+    "title": "GeometricIntegrators.Tableaus.getTableauVPRadIIAIIA3",
+    "category": "Method",
+    "text": "Tableau for Gauss-Radau IIA-IIA method with three stages\n\n\n\n"
 },
 
 {
