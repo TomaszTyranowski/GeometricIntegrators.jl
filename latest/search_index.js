@@ -153,11 +153,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "modules/equations.html#GeometricIntegrators.Equations.HDAE",
+    "page": "Equations",
+    "title": "GeometricIntegrators.Equations.HDAE",
+    "category": "Type",
+    "text": "HDAE: Hamiltonian Differential Algebraic Equation\n\nDefines a Hamiltonian differential algebraic initial value problem, that is a canonical Hamiltonian system of equations subject to Dirac constraints,\n\nbeginalign*\ndotq (t) = v_1(t q(t) p(t)) + v_2(t q(t) p(t) lambda(t)) + v_3(t q(t) p(t) lambda(t) gamma(t))   q(t_0) = q_0  \ndotp (t) = f_1(t q(t) p(t)) + f_2(t q(t) p(t) lambda(t)) + f_3(t q(t) p(t) lambda(t) gamma(t))   p(t_0) = p_0  \n0 = phi (t q(t) p(t))  \n0 = psi (t q(t) p(t) lambda(t)) \nendalign*\n\nwith vector fields v_i and f_i for i = 1  3, primary constraint phi(qp)=0 and secondary constraint psi(qplambda)=0, initial conditions (q_0 p_0), the dynamical variables (qp) taking values in mathbbR^d times mathbbR^d and the algebraic variables (lambda gamma) taking values in mathbbR^n times mathbbR^d.\n\nFields\n\nd: dimension of dynamical variables q and p as well as the vector fields v and f\nm: dimension of algebraic variables lambda and gamma and the constraints phi and psi\nn: number of initial conditions\nv: tuple of functions computing the vector fields v_i, i = 1  3\nf: tuple of functions computing the vector fields f_i, i = 1  3\nϕ: primary constraints\nψ: secondary constraints\nt₀: initial time\nq₀: initial condition for dynamical variable q\np₀: initial condition for dynamical variable p\n\n\n\n"
+},
+
+{
     "location": "modules/equations.html#GeometricIntegrators.Equations.IDAE",
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.IDAE",
     "category": "Type",
-    "text": "IDAE: Implicit Differential Algebraic Equation\n\nDefines a partitioned differential algebraic initial value problem\n\nbeginalign*\ndotq (t) = v(t) + u(t q(t) p(t) lambda(t))   q(t_0) = q_0  \ndotp (t) = f(t q(t) v(t)) + r(t q(t) p(t) lambda(t))   p(t_0) = p_0  \np(t) = p(t q(t) v(t))   \n0 = phi (t q(t) p(t) lambda(t))   lambda(t_0) = lambda_0 \nendalign*\n\nwith vector field f, the momentum defined by p, projection u and r, algebraic constraint phi=0, conditions (q_0 p_0) and lambda_0, the dynamical variables (qp) taking values in mathbbR^d times mathbbR^d and the algebraic variable lambda taking values in mathbbR^n.\n\nFields\n\nm: dimension of dynamical variables q and p as well as the vector fields f and p\nn: dimension of algebraic variable lambda and the constraint phi\nf: function computing the vector field f\np: function computing p\nu: function computing the projection\ng: function computing the projection\nϕ: algebraic constraint\nt₀: initial time\nq₀: initial condition for dynamical variable q\np₀: initial condition for dynamical variable p\nλ₀: initial condition for algebraic variable lambda\n\n\n\n"
+    "text": "IDAE: Implicit Differential Algebraic Equation\n\nDefines a partitioned differential algebraic initial value problem\n\nbeginalign*\ndotq (t) = v(t) + u(t q(t) p(t) lambda(t))   q(t_0) = q_0  \ndotp (t) = f(t q(t) v(t)) + r(t q(t) p(t) lambda(t))   p(t_0) = p_0  \np(t) = p(t q(t) v(t))   \n0 = phi (t q(t) p(t) lambda(t))   lambda(t_0) = lambda_0 \nendalign*\n\nwith vector field f, the momentum defined by p, projection u and r, algebraic constraint phi=0, conditions (q_0 p_0) and lambda_0, the dynamical variables (qp) taking values in mathbbR^d times mathbbR^d and the algebraic variable lambda taking values in mathbbR^n.\n\nFields\n\nd: dimension of dynamical variables q and p as well as the vector fields f and p\nm: dimension of algebraic variable lambda and the constraint phi\nn: number of initial conditions\nf: function computing the vector field f\np: function computing p\nu: function computing the projection\ng: function computing the projection\nϕ: algebraic constraint\nt₀: initial time\nq₀: initial condition for dynamical variable q\np₀: initial condition for dynamical variable p\nλ₀: initial condition for algebraic variable lambda\n\n\n\n"
 },
 
 {
@@ -181,7 +189,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.PDAE",
     "category": "Type",
-    "text": "PDAE: Partitioned Differential Algebraic Equation\n\nDefines a partitioned differential algebraic initial value problem\n\nbeginalign*\ndotq (t) = v(t q(t) p(t)) + u(t q(t) p(t) lambda(t))   q(t_0) = q_0  \ndotp (t) = f(t q(t) p(t)) + r(t q(t) p(t) lambda(t))   p(t_0) = p_0  \n0 = phi (t q(t) p(t) lambda(t))   lambda(t_0) = lambda_0 \nendalign*\n\nwith vector fields v and f, projection u and r, algebraic constraint phi=0, conditions (q_0 p_0) and lambda_0, the dynamical variables (qp) taking values in mathbbR^d times mathbbR^d and the algebraic variable lambda taking values in mathbbR^n.\n\nFields\n\nm: dimension of dynamical variables q and p as well as the vector fields v and f\nn: dimension of algebraic variable lambda and the constraint phi\nv: function computing the vector field v\nf: function computing the vector field f\nu: function computing the projection\ng: function computing the projection\nϕ: algebraic constraint\nt₀: initial time\nq₀: initial condition for dynamical variable q\np₀: initial condition for dynamical variable p\nλ₀: initial condition for algebraic variable lambda\n\n\n\n"
+    "text": "PDAE: Partitioned Differential Algebraic Equation\n\nDefines a partitioned differential algebraic initial value problem\n\nbeginalign*\ndotq (t) = v(t q(t) p(t)) + u(t q(t) p(t) lambda(t))   q(t_0) = q_0  \ndotp (t) = f(t q(t) p(t)) + r(t q(t) p(t) lambda(t))   p(t_0) = p_0  \n0 = phi (t q(t) p(t) lambda(t))   lambda(t_0) = lambda_0 \nendalign*\n\nwith vector fields v and f, projection u and r, algebraic constraint phi=0, conditions (q_0 p_0) and lambda_0, the dynamical variables (qp) taking values in mathbbR^d times mathbbR^d and the algebraic variable lambda taking values in mathbbR^n.\n\nFields\n\nd: dimension of dynamical variables q and p as well as the vector fields f and p\nm: dimension of algebraic variable lambda and the constraint phi\nn: number of initial conditions\nv: function computing the vector field v\nf: function computing the vector field f\nu: function computing the projection\ng: function computing the projection\nϕ: algebraic constraint\nt₀: initial time\nq₀: initial condition for dynamical variable q\np₀: initial condition for dynamical variable p\nλ₀: initial condition for algebraic variable lambda\n\n\n\n"
 },
 
 {
@@ -533,6 +541,14 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
+    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate",
+    "category": "Function",
     "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
 },
 
@@ -542,14 +558,6 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
     "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate",
-    "category": "Function",
-    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1149,14 +1157,6 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
     "text": "Create solution for implicit ODE.\n\n\n\n"
 },
 
@@ -1165,7 +1165,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for partitioned ODE.\n\n\n\n"
+    "text": "Create solution for DAE.\n\n\n\n"
 },
 
 {
@@ -1173,7 +1173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
+    "text": "Create solution for partitioned ODE.\n\n\n\n"
 },
 
 {
@@ -1197,7 +1197,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for DAE.\n\n\n\n"
+    "text": "Create solution for variational ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
 },
 
 {
