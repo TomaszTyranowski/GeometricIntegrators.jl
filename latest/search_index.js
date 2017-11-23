@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Manual",
     "category": "section",
-    "text": "Pages = [\"tutorial.md\"]"
+    "text": "Pages = [\"tutorial.md\",\n         \"integrators.md\"]"
 },
 
 {
@@ -30,6 +30,22 @@ var documenterSearchIndex = {"docs": [
     "title": "Modules",
     "category": "section",
     "text": "Pages = [\"modules/basis_functions.md\",\n         \"modules/equations.md\",\n         \"modules/integrators.md\",\n         \"modules/interpolation.md\",\n         \"modules/quadratures.md\",\n         \"modules/simulations.md\",\n         \"modules/solvers_linear.md\",\n         \"modules/solvers_nonlinear.md\",\n         \"modules/solutions.md\",\n         \"modules/tableaus.md\"\n]"
+},
+
+{
+    "location": "index.html#Background-Material-1",
+    "page": "Home",
+    "title": "Background Material",
+    "category": "section",
+    "text": "Ernst Hairer and Christian Lubich. Numerical Solution of Ordinary Differential Equations. The Princeton Companion to Applied Mathematics, 293-305, 2015. Princeton University Press. (Author's Web Site)\nErnst Hairer, Christian Lubich and Gerhard Wanner. Geometric Numerical Integration Illustrated by the Störmer–Verlet Method. Acta Numerica 12, 399-450, 2003. (Journal)\nLaurent O. Jay. Lobatto Methods. Encyclopedia of Applied and Computational Mathematics, 817–826. Springer, 2015. (Article)"
+},
+
+{
+    "location": "index.html#Useful-Books-on-the-Numerical-Integration-of-Ordinary-Differential-Equations-1",
+    "page": "Home",
+    "title": "Useful Books on the Numerical Integration of Ordinary Differential Equations",
+    "category": "section",
+    "text": "Ernst Hairer, Syvert P. Nørsett and Gerhard Wanner. Solving Ordinary Differential Equations I: Nonstiff Problems. Springer, 1993. (eBook)\nErnst Hairer and Gerhard Wanner. Solving Ordinary Differential Equations II: Stiff and Differential-Algebraic Problems. Springer, 1996. (eBook)\nPeter Deuflhard, Folkmar Bornemann. Scientific Computing with Ordinary Differential Equations. Springer, 2002. (eBook)\nJohn C. Butcher. Numerical Methods for Ordinary Differential Equations. Wiley, 2016. (eBook)\nErnst Hairer, Christian Lubich and Gerhard Wanner. Geometric Numerical Integration. Springer, 2006. (eBook)\nBenedict Leimkuhler and Sebastian Reich. Simulating Hamiltonian Dynamics. Cambridge University Press, 2005. (eBook)\nSergio Blanes, Fernando Casas. A Concise Introduction to Geometric Numerical Integration. CRC Press, 2016. (eBook)"
 },
 
 {
@@ -118,6 +134,142 @@ var documenterSearchIndex = {"docs": [
     "title": "Solutions",
     "category": "section",
     "text": "In what we have seen so far, the solution was always automatically created by the integrate() function. While this is often convenient, it is sometimes not performant, e.g., when carrying out long-time simulations with intermediate saving of the solution. In such cases, it is better to preallocate a solution object bysol = Solution(ode, 0.1, 10)where the first argument is an equation, the second argument is the time step and the third argument is the number of time steps that will be computed in one integration step. The call to the integrator is then made viaintegrate!(int, sol)If several integration cycles shall be performed, the reset!() function can be used to copy the solution of the last time step to the initial conditions of the solution,for i in 1:10\n    integrate!(int, sol)\n    #\n    # save or process solution\n    #\n    reset!(sol)\nendAll solutions have a t field holding the series of time steps that has been computed in addition to several data fields, for example q for an ODE solution, q and p for a PODE solution, qand λ for a DAE solution, and q, p and λ for a PDAE solution."
+},
+
+{
+    "location": "integrators.html#",
+    "page": "Overview",
+    "title": "Overview",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators.html#Integrators-1",
+    "page": "Overview",
+    "title": "Integrators",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "integrators/splitting.html#",
+    "page": "Splitting",
+    "title": "Splitting",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/splitting.html#Splitting-Methods-1",
+    "page": "Splitting",
+    "title": "Splitting Methods",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "integrators/rk.html#",
+    "page": "Runge-Kutta",
+    "title": "Runge-Kutta",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/rk.html#Runge-Kutta-Methods-1",
+    "page": "Runge-Kutta",
+    "title": "Runge-Kutta Methods",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "integrators/rk.html#Gauss-Lobatto-Runge-Kutta-Methods-1",
+    "page": "Runge-Kutta",
+    "title": "Gauss-Lobatto Runge-Kutta Methods",
+    "category": "section",
+    "text": "Function Order Method\ngetTableauLobIIIA2() 2 Gauss-Lobatto IIIA s=2\ngetTableauLobIIIA3() 4 Gauss-Lobatto IIIA s=3\ngetTableauLobIIIA4() 6 Gauss-Lobatto IIIA s=4\ngetTableauLobIIIB2() 2 Gauss-Lobatto IIIB s=2\ngetTableauLobIIIB3() 4 Gauss-Lobatto IIIB s=3\ngetTableauLobIIIB4() 6 Gauss-Lobatto IIIB s=4\ngetTableauLobIIIC2() 2 Gauss-Lobatto IIIC s=2\ngetTableauLobIIIC3() 4 Gauss-Lobatto IIIC s=3\ngetTableauLobIIIC4() 6 Gauss-Lobatto IIIC s=4\ngetTableauLobIIID2() 2 Gauss-Lobatto IIID s=2\ngetTableauLobIIID3() 4 Gauss-Lobatto IIID s=3\ngetTableauLobIIID4() 6 Gauss-Lobatto IIID s=4\ngetTableauLobIIIE2() 2 Gauss-Lobatto IIIE s=2\ngetTableauLobIIIE3() 4 Gauss-Lobatto IIIE s=3\ngetTableauLobIIIE4() 6 Gauss-Lobatto IIIE s=4\ngetTableauLobIIIF2() 4 Gauss-Lobatto IIIF s=2\ngetTableauLobIIIF3() 6 Gauss-Lobatto IIIF s=3\ngetTableauLobIIIF4() 8 Gauss-Lobatto IIIF s=4"
+},
+
+{
+    "location": "integrators/vprk.html#",
+    "page": "VPRK",
+    "title": "VPRK",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/vprk.html#Variational-Partitioned-Runge-Kutta-Integrators-1",
+    "page": "VPRK",
+    "title": "Variational Partitioned Runge-Kutta Integrators",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "integrators/spark.html#",
+    "page": "SPARK",
+    "title": "SPARK",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/spark.html#Special-Partitioned-Additive-Runge-Kutta-Integrators-1",
+    "page": "SPARK",
+    "title": "Special Partitioned Additive Runge-Kutta Integrators",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "integrators/cgvi.html#",
+    "page": "CGVI",
+    "title": "CGVI",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/cgvi.html#Continuous-Galerkin-Variational-Integrators-1",
+    "page": "CGVI",
+    "title": "Continuous Galerkin Variational Integrators",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "integrators/dgvi.html#",
+    "page": "DGVI",
+    "title": "DGVI",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/dgvi.html#Discontinuous-Galerkin-Variational-Integrators-1",
+    "page": "DGVI",
+    "title": "Discontinuous Galerkin Variational Integrators",
+    "category": "section",
+    "text": "\\[ \\delta \\sum \\limits_{n=0}^{N-1} \\Bigg{     \\sum \\limits_{i=1}^{s} b_i \\, L \\big( q_h (t_n + c_i h), \\, \\dot{q}_h (t_n + c_i h) \\big)     + \\dfrac{1}{2} \\sum \\limits_{i=1}^{\\sigma} \\beta_i \\, \\vartheta \\big( \\phi (\\gamma_i; q_{n} , q_{n}^+) \\big) \\, \\dfrac{d\\phi}{d\\tau} (\\gamma_i; q_{n} , q_{n}^+)     + \\dfrac{1}{2} \\sum \\limits_{i=1}^{\\sigma} \\beta_i \\, \\vartheta \\big( \\phi (\\gamma_i; q_{n+1}^- , q_{n+1}) \\big) \\, \\dfrac{d\\phi}{d\\tau} (\\gamma_i; q_{n+1}^- , q_{n+1}) \\Bigg} = 0 \\]"
+},
+
+{
+    "location": "integrators/hpg.html#",
+    "page": "HPG",
+    "title": "HPG",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "integrators/hpg.html#Hamilton-Pontryagin-Galerkin-Integrators-1",
+    "page": "HPG",
+    "title": "Hamilton-Pontryagin-Galerkin Integrators",
+    "category": "section",
+    "text": ""
 },
 
 {
@@ -621,7 +773,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.IntegratorVPRKpSecondary",
     "category": "Type",
-    "text": "Variational partitioned Runge-Kutta integrator.\n\n\n\n"
+    "text": "Variational partitioned Runge-Kutta integrator with projection on secondary constraint.\n\nbeginalign*\nP_ni = dfracpartial Lpartial v (Q_ni V_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  big( V_nj + Lambda_nj big)  \nq_n+1 = q_n + h sum limits_i=1^s b_i  big( V_ni + Lambda_ni big)  \nF_ni = dfracpartial Lpartial q (Q_ni V_ni)  \nP_ni = p_n + h sum limits_i=1^s bara_ij  big( F_nj + nabla vartheta (Q_nj) cdot Lambda_nj big) - d_i lambda  \np_n+1 = p_n + h sum limits_i=1^s barb_i  big( F_ni + nabla vartheta (Q_nj) cdot Lambda_nj big)  \n0 = sum limits_i=1^s d_i V_i  \n0 = sum limits_j=1^s omega_ij Psi_nj  \n0 = phi (q_n+1 p_n+1) \nendalign*\n\nsatisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + barb_j a_ji = b_i barb_j  \nbarb_i = b_i \nendalign*\n\nthe primary constraint,\n\nbeginalign*\nphi(qp) = p - vartheta (q) = 0 \nendalign*\n\nat the final solution (q_n+1 p_n+1), and super positions of the secondary constraints,\n\nbeginalign*\npsi(qdotqpdotp)\n= dotp - dotq cdot nabla vartheta (q)\n= big( nabla vartheta (q) - nabla vartheta^T (q) big) cdot dotq - nabla H (q)\n= 0\nendalign*\n\nat the internal stages,\n\nbeginalign*\nPsi_nj = big( nabla vartheta (Q_nj) - nabla vartheta^T (Q_nj) big) cdot V_nj - nabla H (Q_nj) \nendalign*\n\nHere, omega is a (s-1) times s matrix, chosen such that the resulting method has optimal order. The vector d is zero for Gauss-Legendre methods and needs to be chosen appropriately for Gauss-Lobatto methods (for details see documentation of VPRK methods).\n\n\n\n"
 },
 
 {
@@ -677,7 +829,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.TableauEPRK",
     "category": "Type",
-    "text": "TableauEPRK: Tableau of an Explicit Partitioned Runge-Kutta method\n\nbeginalign*\nV_ni = hphantom- dfracpartial Hpartial p (Q_ni P_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  V_nj  \nq_n+1 = q_n + h sum limits_i=1^s b_i  V_ni  \nF_ki = - dfracpartial Hpartial q (Q_ni P_ni)  \nP_ni = p_n + h  sum limits_i=1^s bara_ij  F_nj  \np_n+1 = p_n + h sum limits_i=1^s barb_i  F_ni \nendalign*\n\nusually satisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + b_j a_ji = b_i b_j  \nbarb_i = b_i \nendalign*\n\n\n\n"
+    "text": "TableauEPRK: Tableau of an Explicit Partitioned Runge-Kutta method\n\nbeginalign*\nV_ni = hphantom- dfracpartial Hpartial p (Q_ni P_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  V_nj  \nq_n+1 = q_n + h sum limits_i=1^s b_i  V_ni  \nF_ni = - dfracpartial Hpartial q (Q_ni P_ni)  \nP_ni = p_n + h  sum limits_i=1^s bara_ij  F_nj  \np_n+1 = p_n + h sum limits_i=1^s barb_i  F_ni \nendalign*\n\nusually satisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + b_j a_ji = b_i b_j  \nbarb_i = b_i \nendalign*\n\n\n\n"
 },
 
 {
@@ -725,7 +877,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.TableauIPRK",
     "category": "Type",
-    "text": "TableauIPRK: Tableau of an Implicit Partitioned Runge-Kutta method\n\nbeginalign*\nP_ni = dfracpartial Lpartial v (Q_ni V_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  V_nj  \nq_n+1 = q_n + h sum limits_i=1^s b_i  V_ni  \nF_ki = dfracpartial Lpartial q (Q_ni V_ni)  \nP_ni = p_n + h  sum limits_i=1^s bara_ij  F_nj  \np_n+1 = p_n + h sum limits_i=1^s barb_i  F_ni \nendalign*\n\nusually satisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + b_j a_ji = b_i b_j  \nbarb_i = b_i \nendalign*\n\n\n\n"
+    "text": "TableauIPRK: Tableau of an Implicit Partitioned Runge-Kutta method\n\nbeginalign*\nP_ni = dfracpartial Lpartial v (Q_ni V_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  V_nj  \nq_n+1 = q_n + h sum limits_i=1^s b_i  V_ni  \nF_ni = dfracpartial Lpartial q (Q_ni V_ni)  \nP_ni = p_n + h  sum limits_i=1^s bara_ij  F_nj  \np_n+1 = p_n + h sum limits_i=1^s barb_i  F_ni \nendalign*\n\nusually satisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + b_j a_ji = b_i b_j  \nbarb_i = b_i \nendalign*\n\n\n\n"
 },
 
 {
@@ -797,7 +949,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.TableauVPRK",
     "category": "Type",
-    "text": "TableauVPRK: Tableau of a Variational Partitioned Runge-Kutta method\n\nbeginalign*\nP_ni = dfracpartial Lpartial v (Q_ni V_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  V_nj  \nq_n+1 = q_n + h sum limits_i=1^s b_i  V_ni  \nF_ki = dfracpartial Lpartial q (Q_ni V_ni)  \nP_ni = p_n + h  sum limits_i=1^s bara_ij  F_nj - d_i lambda  \np_n+1 = p_n + h sum limits_i=1^s barb_i  F_ni  \n\n0 = sum limits_i=1^s d_i V_i  \nendalign*\n\nsatisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + b_j a_ji = b_i b_j  \nbarb_i = b_i \nendalign*\n\n\n\n"
+    "text": "TableauVPRK: Tableau of a Variational Partitioned Runge-Kutta method\n\nbeginalign*\nP_ni = dfracpartial Lpartial v (Q_ni V_ni)  \nQ_ni = q_n + h sum limits_j=1^s a_ij  V_nj  \nq_n+1 = q_n + h sum limits_i=1^s b_i  V_ni  \nF_ni = dfracpartial Lpartial q (Q_ni V_ni)  \nP_ni = p_n + h sum limits_i=1^s bara_ij  F_nj - d_i lambda  \np_n+1 = p_n + h sum limits_i=1^s barb_i  F_ni  \n\n0 = sum limits_i=1^s d_i V_i  \nendalign*\n\nsatisfying the symplecticity conditions\n\nbeginalign*\nb_i bara_ij + b_j a_ji = b_i b_j  \nbarb_i = b_i \nendalign*\n\n\n\n"
 },
 
 {
@@ -965,7 +1117,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
+    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -973,7 +1125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
+    "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1621,7 +1773,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for partitioned ODE.\n\n\n\n"
+    "text": "Create solution for variational ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for ODE and split ODE.\n\n\n\n"
 },
 
 {
@@ -1630,6 +1790,14 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
     "text": "Create solution for DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for implicit DAE.\n\n\n\n"
 },
 
 {
@@ -1653,22 +1821,6 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for ODE and split ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
     "text": "Create solution for partitioned DAE.\n\n\n\n"
 },
 
@@ -1677,7 +1829,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for implicit DAE.\n\n\n\n"
+    "text": "Create solution for partitioned ODE.\n\n\n\n"
 },
 
 {
