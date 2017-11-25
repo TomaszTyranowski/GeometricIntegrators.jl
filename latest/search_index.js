@@ -365,7 +365,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.VODE",
     "category": "Type",
-    "text": "VODE: Variational Ordinary Differential Equation\n\nDefines an implicit initial value problem\n\nbeginalign*\ndotq (t) = v(t)  \nq(t_0) = q_0  \ndotp (t) = f(t q(t) v(t))  \np(t_0) = p_0  \np(t) = (t q(t) v(t))\nendalign*\n\nwith vector field f, the momentum defined by p, initial conditions (q_0 p_0) and the solution (qp) taking values in mathbbR^d times mathbbR^d. This is a special case of a differential algebraic equation with dynamical variables (qp) and algebraic variable v.\n\nFields\n\nd: dimension of dynamical variables q and p as well as the vector fields f and p\nα: function determining the momentum\nf: function computing the vector field\ng: function determining the projection, given by ∇α(q)λ\nv: function computing an initial guess for the velocity field (optional)\nt₀: initial time (optional)\nq₀: initial condition for q\np₀: initial condition for p\n\nThe functions α and f must have the interface\n\n    function α(t, q, v, p)\n        p[1] = ...\n        p[2] = ...\n        ...\n    end\n\nand\n\n    function f(t, q, v, f)\n        f[1] = ...\n        f[2] = ...\n        ...\n    end\n\nwhere t is the current time, q is the current solution vector, v is the current velocity and f and p are the vectors which hold the result of evaluating the functions f and  on t, q and v. The funtions g and v are specified by\n\n    function g(t, q, λ, g)\n        g[1] = ...\n        g[2] = ...\n        ...\n    end\n\nand\n\n    function v(t, q, p, v)\n        v[1] = ...\n        v[2] = ...\n        ...\n    end\n\n\n\n"
+    "text": "VODE: Variational Ordinary Differential Equation\n\nDefines an implicit initial value problem\n\nbeginalign*\ndotq (t) = v(t)  \nq(t_0) = q_0  \ndotp (t) = f(t q(t) v(t))  \np(t_0) = p_0  \np(t) = (t q(t) v(t))\nendalign*\n\nwith vector field f, the momentum defined by p, initial conditions (q_0 p_0) and the solution (qp) taking values in mathbbR^d times mathbbR^d. This is a special case of a differential algebraic equation with dynamical variables (qp) and algebraic variable v.\n\nFields\n\nd: dimension of dynamical variables q and p as well as the vector fields f and p\nα: function determining the momentum\nf: function computing the vector field\ng: function determining the projection, given by ∇α(q)λ\nv: function computing an initial guess for the velocity field (optional)\nt₀: initial time (optional)\nq₀: initial condition for q\np₀: initial condition for p\nλ₀: initial condition for λ\n\nThe functions α and f must have the interface\n\n    function α(t, q, v, p)\n        p[1] = ...\n        p[2] = ...\n        ...\n    end\n\nand\n\n    function f(t, q, v, f)\n        f[1] = ...\n        f[2] = ...\n        ...\n    end\n\nwhere t is the current time, q is the current solution vector, v is the current velocity and f and p are the vectors which hold the result of evaluating the functions f and  on t, q and v. The funtions g and v are specified by\n\n    function g(t, q, λ, g)\n        g[1] = ...\n        g[2] = ...\n        ...\n    end\n\nand\n\n    function v(t, q, p, v)\n        v[1] = ...\n        v[2] = ...\n        ...\n    end\n\n\n\n"
 },
 
 {
@@ -961,7 +961,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersHSPARK{DT,TT,VT,FT,ϕT,ψT}}, Tuple{DT}, Tuple{FT}, Tuple{TT}, Tuple{VT}, Tuple{ψT}, Tuple{ϕT}} where ψT where ϕT where FT where VT where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.ParametersHSPARK{DT,TT,VT,FT,ϕT,ψT}}, Tuple{DT}, Tuple{FT}, Tuple{TT}, Tuple{VT}, Tuple{ψT}, Tuple{ϕT}} where ψT where ϕT where FT where VT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -969,7 +969,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersPARK{DT,TT,FT,PT,UT,GT,ϕT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{ϕT}} where ϕT where GT where UT where PT where FT where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.ParametersPARK{DT,TT,FT,PT,UT,GT,ϕT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{ϕT}} where ϕT where GT where UT where PT where FT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -977,7 +977,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersPGLRK{DT,TT,ΑT,FT,GT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{TT}, Tuple{ΑT}} where GT where FT where ΑT where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.ParametersPGLRK{DT,TT,ΑT,FT,GT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{TT}, Tuple{ΑT}} where GT where FT where ΑT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -985,7 +985,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersSPARK{DT,TT,FT,PT,UT,GT,ϕT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{ϕT}} where ϕT where GT where UT where PT where FT where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.ParametersSPARK{DT,TT,FT,PT,UT,GT,ϕT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{ϕT}} where ϕT where GT where UT where PT where FT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -993,7 +993,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPARK{DT,TT,FT,PT,UT,GT,ϕT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{ϕT}} where ϕT where GT where UT where PT where FT where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{DT,1},Array{DT,1},GeometricIntegrators.Integrators.ParametersVPARK{DT,TT,FT,PT,UT,GT,ϕT}}, Tuple{DT}, Tuple{FT}, Tuple{GT}, Tuple{PT}, Tuple{TT}, Tuple{UT}, Tuple{ϕT}} where ϕT where GT where UT where PT where FT where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1001,7 +1001,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersCGVI{DT,TT,ΘT,FT,D,S,R}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{R}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where R where S where D where FT where ΘT where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersCGVI{DT,TT,ΘT,FT,D,S,R}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{R}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where R where S where D where FT where ΘT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1009,7 +1009,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersDGVI{DT,TT,ΘT,FT,GT,D,S,QR,FR}}, Tuple{DT}, Tuple{D}, Tuple{FR}, Tuple{FT}, Tuple{GT}, Tuple{QR}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where FR where QR where S where D where GT where FT where ΘT where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersDGVI{DT,TT,ΘT,FT,GT,D,S,QR,FR}}, Tuple{DT}, Tuple{D}, Tuple{FR}, Tuple{FT}, Tuple{GT}, Tuple{QR}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where FR where QR where S where D where GT where FT where ΘT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1017,7 +1017,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersFIRK{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersFIRK{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1025,7 +1025,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersFLRK{DT,TT,VT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{VT}} where S where D where VT where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersFLRK{DT,TT,VT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{VT}} where S where D where VT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1033,7 +1033,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersIPRK{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersIPRK{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1041,7 +1041,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpLegendre{DT,TT,ΘT,FT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where S where D where FT where ΘT where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRKpLegendre{DT,TT,ΘT,FT,D,S}}, Tuple{DT}, Tuple{D}, Tuple{FT}, Tuple{ST}, Tuple{S}, Tuple{TT}, Tuple{ΘT}} where S where D where FT where ΘT where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1049,7 +1049,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpMidpoint{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRKpMidpoint{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1057,7 +1057,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRKpSecondary{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1065,7 +1065,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRKpStandard{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1073,7 +1073,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSymmetric{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRKpSymmetric{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1081,7 +1081,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRKpVariational{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1089,7 +1089,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.function_stages!-Union{Tuple{Array{ST,1},Array{ST,1},GeometricIntegrators.Integrators.ParametersVPRK{DT,TT,ET,D,S}}, Tuple{DT}, Tuple{D}, Tuple{ET}, Tuple{ST}, Tuple{S}, Tuple{TT}} where S where D where ET where TT where DT where ST",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.function_stages!",
     "category": "Method",
@@ -1109,7 +1109,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
+    "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1125,7 +1125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
+    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1193,22 +1193,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpSecondary{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.VODE{DT,TT,αType,fType,gType,vType,ωType,dHType,N} where N where dHType<:Function where ωType<:Function where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate!",
-    "category": "Method",
-    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpVariational{DT,TT,SPT,PPT,SST,STP,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where STP<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where SST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PPT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)) where SPT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate!",
-    "category": "Method",
-    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
-},
-
-{
     "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.Integrator{DT,TT},GeometricIntegrators.Solutions.Solution{DT,TT,N},Int64,Int64,Int64,Int64}, Tuple{N}, Tuple{TT}} where N where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate!",
@@ -1241,145 +1225,145 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersCGVI",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersCGVI",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersCGVI",
+    "title": "GeometricIntegrators.Integrators.ParametersCGVI",
     "category": "Type",
-    "text": "NonlinearFunctionParametersCGVI: Parameters for right-hand side function of continuous Galerkin variational Integrator.\n\nParameters\n\nΘ: function of the noncanonical one-form (∂L/∂v)\nf: function of the force (∂L/∂q)\nΔt: time step\nb: weights of the quadrature rule\nc: nodes of the quadrature rule\nx: nodes of the basis\nm: mass matrix\na: derivative matrix\nr₀: reconstruction coefficients at the beginning of the interval\nr₁: reconstruction coefficients at the end of the interval\nt: current time\nq: current solution of q\np: current solution of p\n\n\n\n"
+    "text": "ParametersCGVI: Parameters for right-hand side function of continuous Galerkin variational Integrator.\n\nParameters\n\nΘ: function of the noncanonical one-form (∂L/∂v)\nf: function of the force (∂L/∂q)\nΔt: time step\nb: weights of the quadrature rule\nc: nodes of the quadrature rule\nx: nodes of the basis\nm: mass matrix\na: derivative matrix\nr₀: reconstruction coefficients at the beginning of the interval\nr₁: reconstruction coefficients at the end of the interval\nt: current time\nq: current solution of q\np: current solution of p\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersDGVI",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersDGVI",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersDGVI",
+    "title": "GeometricIntegrators.Integrators.ParametersDGVI",
     "category": "Type",
-    "text": "NonlinearFunctionParametersDGVI: Parameters for right-hand side function of discontinuous Galerkin variational Integrator.\n\nParameters\n\nΘ: function of the noncanonical one-form (∂L/∂v)\nf: function of the force (∂L/∂q)\nΔt: time step\nb: quadrature weights\nc: quadrature nodes\nm: mass matrix\na: derivative matrix\nr₀: reconstruction coefficients, left-hand side\nr₁: reconstruction coefficients, right-hand side\nβ: weights of the quadrature rule for the flux\nγ: nodes of the quadrature rule for the flux\nμ₀: mass vector for the lhs flux\nμ₁: mass vector for the rhs flux\nα₀: derivative vector for the lhs flux\nα₁: derivative vector for the rhs flux\nt: current time\nq: current solution of q\np: current solution of p\nD: dimension of the system\nS: number of basis nodes\nR: number of quadrature nodes\nP: number of quadrature nodes for the flux\n\n\n\n"
+    "text": "ParametersDGVI: Parameters for right-hand side function of discontinuous Galerkin variational Integrator.\n\nParameters\n\nΘ: function of the noncanonical one-form (∂L/∂v)\nf: function of the force (∂L/∂q)\nΔt: time step\nb: quadrature weights\nc: quadrature nodes\nm: mass matrix\na: derivative matrix\nr₀: reconstruction coefficients, left-hand side\nr₁: reconstruction coefficients, right-hand side\nβ: weights of the quadrature rule for the flux\nγ: nodes of the quadrature rule for the flux\nμ₀: mass vector for the lhs flux\nμ₁: mass vector for the rhs flux\nα₀: derivative vector for the lhs flux\nα₁: derivative vector for the rhs flux\nt: current time\nq: current solution of q\np: current solution of p\nD: dimension of the system\nS: number of basis nodes\nR: number of quadrature nodes\nP: number of quadrature nodes for the flux\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersFIRK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersFIRK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersFIRK",
+    "title": "GeometricIntegrators.Integrators.ParametersFIRK",
     "category": "Type",
     "text": "Parameters for right-hand side function of fully implicit Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersFLRK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersFLRK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersFLRK",
+    "title": "GeometricIntegrators.Integrators.ParametersFLRK",
     "category": "Type",
     "text": "Parameters for right-hand side function of formal Lagrangian Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersHSPARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersHSPARK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersHSPARK",
+    "title": "GeometricIntegrators.Integrators.ParametersHSPARK",
     "category": "Type",
     "text": "Parameters for right-hand side function of Hamiltonian Specialised Partitioned Additive Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersIPRK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersIPRK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersIPRK",
+    "title": "GeometricIntegrators.Integrators.ParametersIPRK",
     "category": "Type",
     "text": "Parameters for right-hand side function of implicit partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersPARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersPARK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersPARK",
+    "title": "GeometricIntegrators.Integrators.ParametersPARK",
     "category": "Type",
     "text": "Parameters for right-hand side function of partitioned additive Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersPGLRK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersPGLRK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersPGLRK",
+    "title": "GeometricIntegrators.Integrators.ParametersPGLRK",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersSPARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersSPARK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersSPARK",
+    "title": "GeometricIntegrators.Integrators.ParametersSPARK",
     "category": "Type",
     "text": "Parameters for right-hand side function of Specialised Partitioned Additive Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPARK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPARK",
+    "title": "GeometricIntegrators.Integrators.ParametersVPARK",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned additive Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRK",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpLegendre",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRKpLegendre",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpLegendre",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRKpLegendre",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational special partitioned additive Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpMidpoint",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRKpMidpoint",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpMidpoint",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRKpMidpoint",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRKpSecondary",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSecondary",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRKpSecondary",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRKpStandard",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRKpStandard",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSymmetric",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRKpSymmetric",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSymmetric",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRKpSymmetric",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVPRKpVariational",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpVariational",
+    "title": "GeometricIntegrators.Integrators.ParametersVPRKpVariational",
     "category": "Type",
     "text": "Parameters for right-hand side function of variational partitioned Runge-Kutta methods.\n\n\n\n"
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.NonlinearFunctionParametersVSPARK",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.ParametersVSPARK",
     "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.NonlinearFunctionParametersVSPARK",
+    "title": "GeometricIntegrators.Integrators.ParametersVSPARK",
     "category": "Type",
     "text": "Parameters for right-hand side function of Variational Specialised Partitioned Additive Runge-Kutta methods.\n\n\n\n"
 },
@@ -1561,7 +1545,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorFIRK{DT,TT,PT,ST,IT,N} where N where IT<:(GeometricIntegrators.Integrators.InitialGuessODE{DT,TT,VT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersFIRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.ODE{DT,TT,vType,N} where N where vType<:Function)),GeometricIntegrators.Solutions.SolutionODE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}} where N where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorFIRK{DT,TT,PT,ST,IT,N} where N where IT<:(GeometricIntegrators.Integrators.InitialGuessODE{DT,TT,VT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.ParametersFIRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.ODE{DT,TT,vType,N} where N where vType<:Function)),GeometricIntegrators.Solutions.SolutionODE{DT,TT,N},Int64,Int64}, Tuple{N}, Tuple{TT}} where N where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -1577,7 +1561,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpMidpoint{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpMidpoint{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpMidpoint{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.ParametersVPRKpMidpoint{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -1585,7 +1569,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpStandard{DT,TT,SPT,PPT,SST,STP,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where STP<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where SST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PPT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpStandard{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)) where SPT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpSecondary{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.ParametersVPRKpSecondary{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.VODE{DT,TT,αType,fType,gType,vType,ωType,dHType,N} where N where dHType<:Function where ωType<:Function where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -1593,7 +1577,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpSymmetric{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRKpSymmetric{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpStandard{DT,TT,SPT,PPT,SST,STP,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where STP<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where SST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PPT<:(GeometricIntegrators.Integrators.ParametersVPRKpStandard{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)) where SPT<:(GeometricIntegrators.Integrators.ParametersVPRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -1601,7 +1585,23 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRK{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.NonlinearFunctionParametersVPRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpSymmetric{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.ParametersVPRKpSymmetric{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRKpVariational{DT,TT,SPT,PPT,SST,STP,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where STP<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where SST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PPT<:(GeometricIntegrators.Integrators.ParametersVPRKpVariational{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)) where SPT<:(GeometricIntegrators.Integrators.ParametersVPRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate_step!",
+    "category": "Method",
+    "text": "Integrate ODE with variational partitioned Runge-Kutta integrator.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorVPRK{DT,TT,PT,ST,IT} where IT<:(GeometricIntegrators.Integrators.InitialGuessPODE{DT,TT,VT,FT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator where FT where VT) where ST<:GeometricIntegrators.Solvers.NonlinearSolver{DT} where PT<:(GeometricIntegrators.Integrators.ParametersVPRK{DT,TT,ET,D,S} where S where D where ET<:(GeometricIntegrators.Equations.IODE{DT,TT,αType,fType,gType,vType,N} where N where vType<:Function where gType<:Function where fType<:Function where αType<:Function)),GeometricIntegrators.Solutions.SolutionPDAE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -1773,23 +1773,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
     "text": "Create solution for ODE and split ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for DAE.\n\n\n\n"
 },
 
 {
@@ -1805,7 +1789,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
+    "text": "Create solution for implicit ODE.\n\n\n\n"
 },
 
 {
@@ -1813,7 +1797,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for implicit ODE.\n\n\n\n"
+    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
 },
 
 {
@@ -1829,7 +1813,23 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
+    "text": "Create solution for DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
     "text": "Create solution for partitioned ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for variational ODE.\n\n\n\n"
 },
 
 {
