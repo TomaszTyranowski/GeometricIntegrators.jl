@@ -1561,7 +1561,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorFLRK{DT,TT,AT,FT,GT,VT,ΩT,dHT,SPT,ST,IT,N} where N where IT where ST where SPT where dHT where ΩT where VT where GT where FT where AT,GeometricIntegrators.Solutions.SolutionPODE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate_step!-Union{Tuple{DT}, Tuple{GeometricIntegrators.Integrators.IntegratorFLRK{DT,TT,AT,FT,GT,VT,ΩT,dHT,SPT,ST,IT,N} where N where IT<:(GeometricIntegrators.Integrators.InitialGuessODE{DT,TT,VT,IT} where IT<:GeometricIntegrators.Interpolation.Interpolator) where ST where SPT where dHT where ΩT where VT where GT where FT where AT,GeometricIntegrators.Solutions.SolutionPODE{DT,TT,N} where N,Int64,Int64}, Tuple{TT}} where TT where DT",
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate_step!",
     "category": "Method",
@@ -1781,7 +1781,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
+    "text": "Create solution for implicit DAE.\n\n\n\n"
 },
 
 {
@@ -1790,30 +1790,6 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
     "text": "Create solution for partitioned ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for implicit ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for partitioned DAE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for ODE and split ODE.\n\n\n\n"
 },
 
 {
@@ -1837,6 +1813,30 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
+    "text": "Create solution for variational ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for partitioned DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for ODE and split ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
     "text": "Create solution for DAE.\n\n\n\n"
 },
 
@@ -1845,7 +1845,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for implicit DAE.\n\n\n\n"
+    "text": "Create solution for implicit ODE.\n\n\n\n"
 },
 
 {
