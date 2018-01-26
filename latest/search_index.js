@@ -1117,14 +1117,6 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate",
-    "category": "Function",
     "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
 },
 
@@ -1134,6 +1126,14 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
     "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate",
+    "category": "Function",
+    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1781,15 +1781,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for DAE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for implicit DAE.\n\n\n\n"
+    "text": "Create solution for variational ODE.\n\n\n\n"
 },
 
 {
@@ -1805,7 +1797,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
+    "text": "Create solution for implicit ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for partitioned DAE.\n\n\n\n"
 },
 
 {
@@ -1821,14 +1821,6 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for implicit ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
     "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
 },
 
@@ -1837,7 +1829,23 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for partitioned DAE.\n\n\n\n"
+    "text": "Create solution for SDE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for DAE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for implicit DAE.\n\n\n\n"
 },
 
 {
@@ -1862,6 +1870,14 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Solutions.SolutionPODE",
     "category": "Type",
     "text": "Solution of a partitioned ordinary differential equation.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.SolutionSDE",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.SolutionSDE",
+    "category": "Type",
+    "text": "SolutionSDE: Solution of a stochastic differential equation\n\nContains all fields necessary to store the solution of an SDE.\n\nFields\n\nnd: dimension of the dynamical variable q\nnt: number of time steps to store\nni: number of initial conditions\nt:  time steps\nq:  solution q[nd, nt+1, ni] with q[:,0,:] the initial conditions\nw:  random variable w[1, nt+1, ni]\nntime: number of time steps to compute\nnsave: save every nsave'th time step\n\n\n\n"
 },
 
 {
@@ -1922,6 +1938,22 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,3},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionPODE{DT,TT,3},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "category": "Method",
+    "text": "Append solution to HDF5 file.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,2},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,2},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
+    "category": "Method",
+    "text": "Append solution to HDF5 file.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.CommonFunctions.write_to_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,3},HDF5.HDF5File,Any}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,3},HDF5.HDF5File}, Tuple{TT}} where TT where DT",
     "page": "Solutions",
     "title": "GeometricIntegrators.CommonFunctions.write_to_hdf5",
     "category": "Method",
@@ -1990,6 +2022,22 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Solutions.create_hdf5",
     "category": "Method",
     "text": "Creates HDF5 file and initialises datasets for PODE solution object.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,2},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,2},AbstractString}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.create_hdf5",
+    "category": "Method",
+    "text": "Creates HDF5 file and initialises datasets for SDE solution object.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.create_hdf5-Union{Tuple{DT}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,3},AbstractString,Int64}, Tuple{GeometricIntegrators.Solutions.SolutionSDE{DT,TT,3},AbstractString}, Tuple{TT}} where TT where DT",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.create_hdf5",
+    "category": "Method",
+    "text": "Creates HDF5 file and initialises datasets for SDE solution object.\n\n\n\n"
 },
 
 {
