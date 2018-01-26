@@ -357,7 +357,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.SDE",
     "category": "Type",
-    "text": "SDE: Stochastic Differential Equation\n\nDefines a stochastic differential initial value problem\n\nbeginalign*\ndq (t) = v(t q(t))  dt + u(t q(t)) dW   q(t_0) = q_0 \nendalign*\n\nwith deterministic vector field v, stochastic vector field u, initial conditions q_0 and the dynamical variable q taking values in mathbbR^m.\n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nn: number of initial conditions\nv: function computing the deterministic vector field\nu: function computing the stochastic vector field\nt₀: initial time\nq₀: initial condition for dynamical variable q\n\nThe functions v and u, providing the vector fields, take three arguments, v(t, q, v) and u(t, q, u), where t is the current time, q is the current solution vector, and v and u are the vectors which hold the result of evaluating the vector fields v and u on t and q.\n\nExample\n\n    function v(λ, t, q, v)\n        v[1] = λ*q[1]\n        v[2] = λ*q[2]\n    end\n\n    function u(μ, t, q, u)\n        u[1] = μ*q[1]\n        u[2] = μ*q[2]\n    end\n\n    t₀ = 0.\n    q₀ = [1., 1.]\n    λ  = 2.\n    μ  = 1.\n\n    v_sde = (t, q, v) → v(λ, t, q, v)\n    u_sde = (t, q, v) → u(μ, t, q, v)\n\n    sde = SDE(v_sde, u_sde, t₀, q₀)\n\n\n\n"
+    "text": "SDE: Stochastic Differential Equation\n\nDefines a stochastic differential initial value problem\n\nbeginalign*\ndq (t) = v(t q(t))  dt + u(t q(t)) dW   q(t_0) = q_0 \nendalign*\n\nwith deterministic vector field v, stochastic vector field u, initial conditions q_0 and the dynamical variable q taking values in mathbbR^m.\n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nn: number of initial conditions\nv: function computing the deterministic vector field\nu: function computing the stochastic vector field\nt₀: initial time\nq₀: initial condition for dynamical variable q\n\nThe functions v and u, providing the vector fields, take three arguments, v(t, q, v) and u(t, q, u), where t is the current time, q is the current solution vector, and v and u are the vectors which hold the result of evaluating the vector fields v and u on t and q.\n\nExample\n\n    function v(λ, t, q, v)\n        v[1] = λ*q[1]\n        v[2] = λ*q[2]\n    end\n\n    function u(μ, t, q, u)\n        u[1] = μ*q[1]\n        u[2] = μ*q[2]\n    end\n\n    t₀ = 0.\n    q₀ = [1., 1.]\n    λ  = 2.\n    μ  = 1.\n\n    v_sde = (t, q, v) -> v(λ, t, q, v)\n    u_sde = (t, q, v) -> u(μ, t, q, v)\n\n    sde = SDE(v_sde, u_sde, t₀, q₀)\n\n\n\n"
 },
 
 {
@@ -1117,7 +1117,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
+    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1133,7 +1133,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
-    "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
+    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1781,23 +1781,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for implicit ODE.\n\n\n\n"
+    "text": "Create solution for DAE.\n\n\n\n"
 },
 
 {
@@ -1813,7 +1797,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for DAE.\n\n\n\n"
+    "text": "Create solution for partitioned ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Create solution for variational ODE.\n\n\n\n"
 },
 
 {
@@ -1829,7 +1821,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for partitioned ODE.\n\n\n\n"
+    "text": "Create solution for implicit ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
+    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
 },
 
 {
