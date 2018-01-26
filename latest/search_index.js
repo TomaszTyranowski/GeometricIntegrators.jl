@@ -301,7 +301,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.DAE",
     "category": "Type",
-    "text": "DAE: Differential Algebraic Equation\n\nDefines a differential algebraic initial value problem\n\nbeginalign*\ndotq (t) = v(t q(t)) + u(t q(t) lambda(t))   q(t_0) = q_0  \n0 = phi (t q(t) lambda(t))   lambda(t_0) = lambda_0 \nendalign*\n\nwith vector field f, projection u, algebraic constraint phi=0, initial conditions q_0 and lambda_0, the dynamical variable q taking values in mathbbR^m and the algebraic variable lambda taking values in mathbbR^n.\n\nFields\n\nm: dimension of dynamical variable q and the vector field f\nn: dimension of algebraic variable lambda and the constraint phi\nv: function computing the vector field\nu: function computing the projection\nϕ: algebraic constraint\nt₀: initial time\nq₀: initial condition for dynamical variable q\nλ₀: initial condition for algebraic variable lambda\n\nThe function v, providing the vector field, takes three arguments, v(t, q, v), the functions u and ϕ, providing the projection and the algebraic constraint take four arguments, u(t, q, λ, u) and ϕ(t, q, λ, ϕ), where t is the current time, q and λ are the current solution vectors, and v, u and ϕ are the vectors which hold the result of evaluating the vector field v, the projection u and the algebraic constraint phi on t, q and λ.\n\nExample\n\n    function v(t, q, v)\n        v[1] = q[1]\n        v[2] = q[2]\n    end\n\n    function u(t, q, λ, u)\n        u[1] = +λ[1]\n        u[2] = -λ[1]\n    end\n\n    function ϕ(t, q, λ, ϕ)\n        ϕ[1] = q[2] - q[1]\n    end\n\n    t₀ = 0.\n    q₀ = [1., 1.]\n    λ₀ = [0.]\n\n    dae = DAE(v, u, ϕ, t₀, q₀, λ₀)\n\n\n\n\n"
+    "text": "DAE: Differential Algebraic Equation\n\nDefines a differential algebraic initial value problem\n\nbeginalign*\ndotq (t) = v(t q(t)) + u(t q(t) lambda(t))   q(t_0) = q_0  \n0 = phi (t q(t) lambda(t))   lambda(t_0) = lambda_0 \nendalign*\n\nwith vector field v, projection u, algebraic constraint phi=0, initial conditions q_0 and lambda_0, the dynamical variable q taking values in mathbbR^m and the algebraic variable lambda taking values in mathbbR^n.\n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nm: dimension of algebraic variable lambda and the constraint phi\nn: number of initial conditions\nv: function computing the vector field\nu: function computing the projection\nϕ: algebraic constraint\nt₀: initial time\nq₀: initial condition for dynamical variable q\nλ₀: initial condition for algebraic variable lambda\n\nThe function v, providing the vector field, takes three arguments, v(t, q, v), the functions u and ϕ, providing the projection and the algebraic constraint take four arguments, u(t, q, λ, u) and ϕ(t, q, λ, ϕ), where t is the current time, q and λ are the current solution vectors, and v, u and ϕ are the vectors which hold the result of evaluating the vector field v, the projection u and the algebraic constraint phi on t, q and λ.\n\nExample\n\n    function v(t, q, v)\n        v[1] = q[1]\n        v[2] = q[2]\n    end\n\n    function u(t, q, λ, u)\n        u[1] = +λ[1]\n        u[2] = -λ[1]\n    end\n\n    function ϕ(t, q, λ, ϕ)\n        ϕ[1] = q[2] - q[1]\n    end\n\n    t₀ = 0.\n    q₀ = [1., 1.]\n    λ₀ = [0.]\n\n    dae = DAE(v, u, ϕ, t₀, q₀, λ₀)\n\n\n\n\n"
 },
 
 {
@@ -333,7 +333,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Equations",
     "title": "GeometricIntegrators.Equations.ODE",
     "category": "Type",
-    "text": "ODE: Ordinary Differential Equation\n\nDefines an initial value problem\n\ndotq (t) = v(t q(t))  qquad q(t_0) = q_0 \n\nwith vector field v, initial condition q_0 and the solution q taking values in mathbbR^d.\n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nv: function computing the vector field\nt₀: initial time\nq₀: initial condition\n\nThe function v providing the vector field must have the interface\n\n    function v(t, q, v)\n        v[1] = ...\n        v[2] = ...\n        ...\n    end\n\nwhere t is the current time, q is the current solution vector, and v is the vector which holds the result of evaluating the vector field v on t and q.\n\n\n\n"
+    "text": "ODE: Ordinary Differential Equation\n\nDefines an initial value problem\n\ndotq (t) = v(t q(t))  qquad q(t_0) = q_0 \n\nwith vector field v, initial condition q_0 and the solution q taking values in mathbbR^d.\n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nn: number of initial conditions\nv: function computing the vector field\nt₀: initial time\nq₀: initial condition\n\nThe function v providing the vector field must have the interface\n\n    function v(t, q, v)\n        v[1] = ...\n        v[2] = ...\n        ...\n    end\n\nwhere t is the current time, q is the current solution vector, and v is the vector which holds the result of evaluating the vector field v on t and q.\n\n\n\n"
 },
 
 {
@@ -350,6 +350,14 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Equations.PODE",
     "category": "Type",
     "text": "IODE: Partitioned Ordinary Differential Equation\n\nDefines a partitioned initial value problem\n\nbeginalign*\ndotq (t) = v(t q(t) p(t))  \nq(t_0) = q_0  \ndotp (t) = f(t q(t) p(t))  \np(t_0) = p_0 \nendalign*\n\nwith vector fields v and f, initial conditions (q_0 p_0) and the solution (qp) taking values in mathbbR^d times mathbbR^d.\n\nFields\n\nd: dimension of dynamical variables q and p as well as the vector fields v and f\nv: function computing the vector field v\nf: function computing the vector field f\nt₀: initial time\nq₀: initial condition for q\np₀: initial condition for p\n\nThe functions v and f must have the interface\n\n    function v(t, q, p, v)\n        v[1] = ...\n        v[2] = ...\n        ...\n    end\n\nand\n\n    function f(t, q, p, f)\n        f[1] = ...\n        f[2] = ...\n        ...\n    end\n\nwhere t is the current time, q and p are the current solution vectors and v and f are the vectors which hold the result of evaluating the vector fields v and f on t, q and p.\n\n\n\n"
+},
+
+{
+    "location": "modules/equations.html#GeometricIntegrators.Equations.SDE",
+    "page": "Equations",
+    "title": "GeometricIntegrators.Equations.SDE",
+    "category": "Type",
+    "text": "SDE: Stochastic Differential Equation\n\nDefines a stochastic differential initial value problem\n\nbeginalign*\ndq (t) = v(t q(t))  dt + u(t q(t)) dW   q(t_0) = q_0 \nendalign*\n\nwith deterministic vector field v, stochastic vector field u, initial conditions q_0 and the dynamical variable q taking values in mathbbR^m.\n\nFields\n\nd: dimension of dynamical variable q and the vector field v\nn: number of initial conditions\nv: function computing the deterministic vector field\nu: function computing the stochastic vector field\nt₀: initial time\nq₀: initial condition for dynamical variable q\n\nThe functions v and u, providing the vector fields, take three arguments, v(t, q, v) and u(t, q, u), where t is the current time, q is the current solution vector, and v and u are the vectors which hold the result of evaluating the vector fields v and u on t and q.\n\nExample\n\n    function v(λ, t, q, v)\n        v[1] = λ*q[1]\n        v[2] = λ*q[2]\n    end\n\n    function u(μ, t, q, u)\n        u[1] = μ*q[1]\n        u[2] = μ*q[2]\n    end\n\n    t₀ = 0.\n    q₀ = [1., 1.]\n    λ  = 2.\n    μ  = 1.\n\n    v_sde = (t, q, v) → v(λ, t, q, v)\n    u_sde = (t, q, v) → u(μ, t, q, v)\n\n    sde = SDE(v_sde, u_sde, t₀, q₀)\n\n\n\n"
 },
 
 {
@@ -1109,6 +1117,14 @@ var documenterSearchIndex = {"docs": [
     "page": "Integrators",
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
+    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
+},
+
+{
+    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
+    "page": "Integrators",
+    "title": "GeometricIntegrators.Integrators.integrate",
+    "category": "Function",
     "text": "Apply integrator for ntime time steps and return solution.\n\n\n\n"
 },
 
@@ -1118,14 +1134,6 @@ var documenterSearchIndex = {"docs": [
     "title": "GeometricIntegrators.Integrators.integrate",
     "category": "Function",
     "text": "Integrate ODE specified by vector field and initial condition with given tableau for ntime time steps and return solution.\n\n\n\n"
-},
-
-{
-    "location": "modules/integrators.html#GeometricIntegrators.Integrators.integrate",
-    "page": "Integrators",
-    "title": "GeometricIntegrators.Integrators.integrate",
-    "category": "Function",
-    "text": "Integrate given equation with given tableau for ntime time steps and return solution.\n\n\n\n"
 },
 
 {
@@ -1773,7 +1781,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for ODE and split ODE.\n\n\n\n"
+    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
 },
 
 {
@@ -1781,7 +1789,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for implicit DAE.\n\n\n\n"
+    "text": "Create solution for variational ODE.\n\n\n\n"
 },
 
 {
@@ -1797,15 +1805,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Print error for solutions of equations not implemented, yet.\n\n\n\n"
-},
-
-{
-    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
-    "page": "Solutions",
-    "title": "GeometricIntegrators.Solutions.Solution",
-    "category": "Type",
-    "text": "Create solution for partitioned DAE.\n\n\n\n"
+    "text": "Create solution for implicit DAE.\n\n\n\n"
 },
 
 {
@@ -1821,6 +1821,14 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
+    "text": "Create solution for ODE and split ODE.\n\n\n\n"
+},
+
+{
+    "location": "modules/solutions.html#GeometricIntegrators.Solutions.Solution",
+    "page": "Solutions",
+    "title": "GeometricIntegrators.Solutions.Solution",
+    "category": "Type",
     "text": "Create solution for partitioned ODE.\n\n\n\n"
 },
 
@@ -1829,7 +1837,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Solutions",
     "title": "GeometricIntegrators.Solutions.Solution",
     "category": "Type",
-    "text": "Create solution for variational ODE.\n\n\n\n"
+    "text": "Create solution for partitioned DAE.\n\n\n\n"
 },
 
 {
