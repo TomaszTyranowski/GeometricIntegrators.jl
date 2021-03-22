@@ -45,7 +45,7 @@ module Tableaus
     include("tableaus/tableaus_erk.jl")
 
     export getTableauExplicitEuler, getTableauExplicitMidpoint, getTableauHeun,
-           getTableauKutta, getTableauERK4, getTableauERK438
+           getTableauKutta, getTableauERK4, getTableauERK438, getTableauVerner
 
     include("tableaus/tableaus_dirk.jl")
 
